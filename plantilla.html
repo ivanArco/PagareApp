@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagaré - Vista Previa</title>
+  <style>
+    body {
+      font-family: 'Times New Roman', serif;
+      background-color: #f9f9f9;
+      margin: 20px;
+    }
+    .pagare {
+      background-color: white;
+      border: 2px solid black;
+      padding: 30px;
+      width: 800px;
+      margin: auto;
+      border-radius: 4px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    h2 {
+      text-align: center;
+      text-transform: uppercase;
+      border-bottom: 2px solid black;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+    .field {
+      flex: 1;
+      margin-right: 10px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 3px;
+    }
+    input {
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid black;
+      font-size: 14px;
+      padding: 3px;
+    }
+    .long-text {
+      border: 1px solid black;
+      padding: 10px;
+      margin-top: 15px;
+      font-size: 13px;
+      text-align: justify;
+    }
+    .signature {
+      margin-top: 40px;
+      text-align: right;
+    }
+    .signature-line {
+      border-top: 1px solid black;
+      width: 300px;
+      margin-left: auto;
+      margin-top: 40px;
+    }
+    @media print {
+      body {
+        background: white;
+      }
+      .pagare {
+        box-shadow: none;
+        border: 1px solid black;
+      }
+      button {
+        display: none;
+      }
+    }
+    button {
+      margin-top: 20px;
+      background-color: black;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="pagare">
+    <h2>PAGARÉ</h2>
+
+    <div class="row">
+      <div class="field">
+        <label>Número:</label>
+        <input type="text" id="numero" readonly placeholder="Se genera automáticamente">
+      </div>
+      <div class="field">
+        <label>Fecha de expedición:</label>
+        <input type="date" id="fechaExpedicion">
+      </div>
+      <div class="field">
+        <label>Lugar de expedición:</label>
+        <input type="text" id="lugarExpedicion">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>Monto ($):</label>
+        <input type="number" id="monto">
+      </div>
+      <div class="field">
+        <label>Interés moratorio (% mensual):</label>
+        <input type="number" id="interesMoratorio">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>Beneficiario:</label>
+        <input type="text" id="beneficiario">
+      </div>
+      <div class="field">
+        <label>Lugar de pago:</label>
+        <input type="text" id="lugarPago">
+      </div>
+      <div class="field">
+        <label>Fecha de pago:</label>
+        <input type="date" id="fechaPago">
+      </div>
+    </div>
+
+    <h3>Datos del Deudor</h3>
+    <div class="row">
+      <div class="field">
+        <label>Nombre:</label>
+        <input type="text" id="nombreDeudor">
+      </div>
+      <div class="field">
+        <label>Dirección:</label>
+        <input type="text" id="direccionDeudor">
+      </div>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label>Teléfono:</label>
+        <input type="text" id="telefonoDeudor">
+      </div>
+      <div class="field">
+        <label>Población:</label>
+        <input type="text" id="poblacionDeudor">
+      </div>
+    </div>
+
+    <div class="long-text">
+      Valor recibido a mi entera satisfacción. Este pagaré forma parte de una serie numerada del 1 al ____ y todos están sujetos a la condición de que, al no pagarse cualquiera de ellos a su vencimiento, serán exigibles todos los que le sigan en número, además de los ya vencidos. Desde la fecha de vencimiento de este documento hasta el día de su liquidación, causará intereses moratorios al tipo señalado, pagadero en esta ciudad puntualmente con el principal.
+    </div>
+
+    <div class="signature">
+      <p>Firma del Deudor:</p>
+      <div class="signature-line"></div>
+    </div>
+
+    <button onclick="window.print()">Imprimir</button>
+  </div>
+</body>
+</html>
