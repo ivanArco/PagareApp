@@ -133,7 +133,7 @@ export default function PagareForm({ onSuccess }) {
         )}
 
         {/* Selector de tipo de deudor */}
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+        <div className="bg-gray-50 rounded-lg p-6">
           <label className="block text-sm font-semibold text-gray-900 mb-4">Tipo de Deudor</label>
           <div className="flex gap-6">
             <label className="flex items-center gap-3 cursor-pointer">
@@ -168,7 +168,7 @@ export default function PagareForm({ onSuccess }) {
               value={form.deudorId}
               onChange={handleChange}
               required
-              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full rounded-lg px-4 py-3 bg-gray-100 focus:outline-none focus:bg-white"
             >
               <option value="">Seleccione un deudor</option>
               {usuariosBasicos.map(u => (
@@ -177,14 +177,14 @@ export default function PagareForm({ onSuccess }) {
             </select>
           </div>
         ) : (
-          <div className="bg-blue-50 border-2 border-blue-300 rounded-lg p-6 space-y-4">
+          <div className="bg-gray-50 rounded-lg p-6 space-y-4">
             <h3 className="font-semibold text-gray-900 text-lg">Datos del Nuevo Deudor</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <input type="text" name="nuevoDeudor.nombre" placeholder="Nombre *" value={form.nuevoDeudor.nombre} onChange={handleChange} required className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500" />
-              <input type="text" name="nuevoDeudor.apellidos" placeholder="Apellidos *" value={form.nuevoDeudor.apellidos} onChange={handleChange} required className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500" />
+              <input type="text" name="nuevoDeudor.nombre" placeholder="Nombre *" value={form.nuevoDeudor.nombre} onChange={handleChange} required className="rounded-lg px-4 py-3 bg-gray-100 focus:outline-none focus:bg-white" />
+              <input type="text" name="nuevoDeudor.apellidos" placeholder="Apellidos *" value={form.nuevoDeudor.apellidos} onChange={handleChange} required className="rounded-lg px-4 py-3 bg-gray-100 focus:outline-none focus:bg-white" />
               <input type="email" name="nuevoDeudor.email" placeholder="Correo electrónico *" value={form.nuevoDeudor.email} onChange={handleChange} required className="col-span-2 sm:col-span-1 border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500" />
-              <input type="text" name="nuevoDeudor.direccion" placeholder="Dirección" value={form.nuevoDeudor.direccion} onChange={handleChange} className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500" />
-              <input type="text" name="nuevoDeudor.telefono" placeholder="Teléfono" value={form.nuevoDeudor.telefono} onChange={handleChange} className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500" />
+              <input type="text" name="nuevoDeudor.direccion" placeholder="Dirección" value={form.nuevoDeudor.direccion} onChange={handleChange} className="rounded-lg px-4 py-3 bg-gray-100 focus:outline-none focus:bg-white" />
+              <input type="text" name="nuevoDeudor.telefono" placeholder="Teléfono" value={form.nuevoDeudor.telefono} onChange={handleChange} className="rounded-lg px-4 py-3 bg-gray-100 focus:outline-none focus:bg-white" />
               <input type="text" name="nuevoDeudor.poblacion" placeholder="Población" value={form.nuevoDeudor.poblacion} onChange={handleChange} className="col-span-2 sm:col-span-1 border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500" />
               <input type="password" name="nuevoDeudor.password" placeholder="Contraseña (dejar vacío para 'cambiar123')" value={form.nuevoDeudor.password} onChange={handleChange} className="col-span-2 border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500" />
             </div>
@@ -196,17 +196,17 @@ export default function PagareForm({ onSuccess }) {
         <div className="space-y-4">
           <h3 className="font-semibold text-gray-900 text-lg">Datos del Pagaré</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <input type="text" name="lugarExpedicion" placeholder="Lugar de expedición *" value={form.lugarExpedicion} onChange={handleChange} required className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500" />
-            <input type="number" step="0.01" name="monto" placeholder="Monto ($) *" value={form.monto} onChange={handleChange} required className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500" />
-            <input type="date" name="fechaPago" value={form.fechaPago} onChange={handleChange} required className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500" />
-            <input type="text" name="lugarPago" placeholder="Lugar de pago *" value={form.lugarPago} onChange={handleChange} required className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500" />
-            <input type="number" step="0.1" name="interesMoratorio" placeholder="Interés moratorio (% mensual) *" value={form.interesMoratorio} onChange={handleChange} required className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500" />
-            <input type="text" name="beneficiario" placeholder="Beneficiario (a la orden de) *" value={form.beneficiario} onChange={handleChange} required className="border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500" />
+            <input type="text" name="lugarExpedicion" placeholder="Lugar de expedición *" value={form.lugarExpedicion} onChange={handleChange} required className="rounded-lg px-4 py-3 bg-gray-100 focus:outline-none focus:bg-white" />
+            <input type="number" step="0.01" name="monto" placeholder="Monto ($) *" value={form.monto} onChange={handleChange} required className="rounded-lg px-4 py-3 bg-gray-100 focus:outline-none focus:bg-white" />
+            <input type="date" name="fechaPago" value={form.fechaPago} onChange={handleChange} required className="rounded-lg px-4 py-3 bg-gray-100 focus:outline-none focus:bg-white" />
+            <input type="text" name="lugarPago" placeholder="Lugar de pago *" value={form.lugarPago} onChange={handleChange} required className="rounded-lg px-4 py-3 bg-gray-100 focus:outline-none focus:bg-white" />
+            <input type="number" step="0.1" name="interesMoratorio" placeholder="Interés moratorio (% mensual) *" value={form.interesMoratorio} onChange={handleChange} required className="rounded-lg px-4 py-3 bg-gray-100 focus:outline-none focus:bg-white" />
+            <input type="text" name="beneficiario" placeholder="Beneficiario (a la orden de) *" value={form.beneficiario} onChange={handleChange} required className="rounded-lg px-4 py-3 bg-gray-100 focus:outline-none focus:bg-white" />
           </div>
         </div>
 
         {/* Aceptación */}
-        <label className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg cursor-pointer border border-gray-200">
+        <label className="flex items-center gap-3 p-4 bg-gray-100 rounded-lg cursor-pointer">
           <input type="checkbox" id="acepto" checked={form.acepto} onChange={handleCheck} required className="w-5 h-5" />
           <span className="text-gray-700">Acepto las condiciones (firma simulada)</span>
         </label>
@@ -215,7 +215,10 @@ export default function PagareForm({ onSuccess }) {
         <button 
           type="submit" 
           disabled={loading}
-          className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full text-white font-semibold py-3 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+          style={{ background: loading ? '#B5D4F4' : '#0C447C' }}
+          onMouseEnter={e => { if (!loading) e.currentTarget.style.background = '#042C53'; }}
+          onMouseLeave={e => { if (!loading) e.currentTarget.style.background = '#0C447C'; }}
         >
           {loading ? '⏳ Guardando...' : '✓ Crear Pagaré'}
         </button>

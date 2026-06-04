@@ -1,33 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 :root {
-  /* Professional color palette */
-  --primary: #1e3a8a;        /* Deep blue */
-  --primary-light: #3b82f6;  /* Bright blue */
-  --secondary: #d97706;      /* Amber/Gold */
+  --primary: #1e3a8a;
+  --primary-light: #3b82f6;
+  --secondary: #d97706;
   --text: #4b5563;
   --text-h: #1a1f36;
   --bg: #f8fafc;
   --bg-card: #ffffff;
-  --border: #e2e8f0;
+  --border: transparent;
   --success: #10b981;
   --error: #ef4444;
   --warning: #f59e0b;
   --accent: #1e3a8a;
   --accent-bg: rgba(30, 58, 138, 0.08);
-  --accent-border: rgba(30, 58, 138, 0.3);
+  --accent-border: transparent;
   --shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 
-  --sans: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-  --heading: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-  --mono: 'Fira Code', 'Courier New', monospace;
+  --sans: 'DM Sans', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  --heading: 'DM Serif Display', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  --mono: 'DM Mono', 'Fira Code', 'Courier New', monospace;
 
   font: 16px/1.6 var(--sans);
   letter-spacing: 0px;
-  color-scheme: light;
+  color-scheme: light only;
   color: var(--text);
   background: var(--bg);
   font-synthesis: none;
@@ -40,46 +40,42 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #cbd5e1;
-    --text-h: #f1f5f9;
-    --bg: #0f172a;
-    --bg-card: #1e293b;
-    --border: #334155;
-    --accent-bg: rgba(30, 58, 138, 0.15);
-    --accent-border: rgba(30, 58, 138, 0.4);
-  }
-}
-
 body {
   margin: 0;
   background-color: var(--bg);
+  color-scheme: light only;
+}
+
+/* Quitar todos los bordes globalmente */
+*, *::before, *::after {
+  border-color: transparent;
 }
 
 /* Buttons */
 button {
   transition: all 0.2s ease;
+  border: none;
 }
 
-/* Inputs & Selects */
+/* Inputs & Selects — sin borde, solo fondo y sombra sutil */
 input, select, textarea {
-  border: 1px solid var(--border);
-  border-radius: 6px;
+  border: none;
+  border-radius: 8px;
   padding: 8px 12px;
-  background-color: var(--bg-card);
-  color: var(--text-h);
+  background-color: #f1f5f9;
+  color: #1a1f36;
   font-family: var(--sans);
-  transition: border-color 0.2s ease;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: none;
 }
 
 input:focus, select:focus, textarea:focus {
   outline: none;
-  border-color: var(--primary);
+  background-color: #ffffff;
   box-shadow: 0 0 0 3px var(--accent-bg);
 }
 
-/* Tables */
+/* Tables — sin bordes, separación por fondo alterno */
 table {
   border-collapse: collapse;
 }
@@ -89,7 +85,18 @@ thead {
 }
 
 td, th {
-  border-bottom: 1px solid var(--border);
+  border: none;
+}
+
+tr + tr td {
+  box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.04);
+}
+
+/* Cards de Tailwind — quitar bordes */
+.rounded-2xl,
+.rounded-xl,
+.rounded-lg {
+  border: none !important;
 }
 
 #root {
@@ -115,9 +122,7 @@ td, th {
   }
 }
 
-h1,
-h2,
-h3 {
+h1, h2, h3 {
   font-family: var(--heading);
   font-weight: 600;
   color: var(--text-h);
@@ -143,6 +148,7 @@ h3 {
   font-size: 20px;
   margin: 12px 0 8px;
 }
+
 p {
   margin: 0;
 }
