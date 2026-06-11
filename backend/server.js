@@ -1,17 +1,24 @@
-require('dotenv').config();
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const dotenv = require('dotenv');
+
+dotenv.config();
+
 const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
 const pagareRoutes = require('./routes/pagare');
+const expedienteRoutes = require('./routes/expediente');
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/pagares', pagareRoutes);
+app.use('/api/expedientes', expedienteRoutes);
 
 // 🚀 Conexión a MongoDB Atlas
 mongoose.connect(process.env.MONGODB_URI)
