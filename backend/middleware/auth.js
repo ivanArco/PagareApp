@@ -1,7 +1,14 @@
 const jwt = require('jsonwebtoken');
 
 const authMiddleware = (req, res, next) => {
-  const token = req.header('x-auth-token');
+  // Soportar tanto 'x-auth-token' como 'Authorization: Bearer <token>'
+  let token = req.header('x-auth-token');
+  if (!token) {
+    const authHeader = req.header('Authorization');
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      token = authHeader.slice(7);
+    }
+  }
   if (!token) return res.status(401).json({ msg: 'No token, autorización denegada' });
   
   try {
@@ -23,9 +30,9 @@ const authMiddleware = (req, res, next) => {
       req.user.rol = req.user.role;
     }
     
-    // Aseguramos compatibilidad por si guardaste '_id' en lugar de 'id'
-    if (req.user && !req.user.id && req.user._id) {
-      req.user.id = req.user._id;
+    // Normalizar el ID sin importar si viene como 'id', '_id' o 'userId'
+    if (req.user && !req.user.id) {
+      req.user.id = req.user._id || req.user.userId;
     }
 
     next();

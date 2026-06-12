@@ -25,8 +25,8 @@ export default function ContratoForm({ onSuccess }) {
   const [pagares, setPagares] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Verificar si el usuario que está ocupando el programa es abogado
-  const esAbogadoAutorizado = user?.rol === 'abogado' || user?.role === 'abogado';
+  // Verificar si el usuario puede crear expedientes (abogado o admin)
+  const esAbogadoAutorizado = ['abogado', 'admin'].includes(user?.rol || user?.role);
 
   useEffect(() => {
     const fetchDeudores = async () => {
@@ -124,19 +124,7 @@ export default function ContratoForm({ onSuccess }) {
     
     try {
       const expedienteData = {
-        noExpediente: `EXP-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
-        abogado: {
-          id: user?.id || user?._id,
-          nombre: `${user?.nombre || ''} ${user?.apellidos || ''}`.trim(),
-          matricula: user?.matricula || 'N/A'
-        },
-        deudor: {
-          id: deudorSeleccionado._id,
-          nombre: deudorSeleccionado.nombre,
-          apellidos: deudorSeleccionado.apellidos || 'N/A',
-          correo: deudorSeleccionado.email || deudorSeleccionado.correo,
-          matricula: deudorSeleccionado.matricula || 'N/A'
-        },
+        deudorId: formData.deudorId,
         prestamista: {
           nombre: formData.prestamista.nombre,
           apellidos: formData.prestamista.apellidos,

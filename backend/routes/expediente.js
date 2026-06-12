@@ -23,10 +23,7 @@ router.get('/', async (req, res) => {
       };
     }
     
-    const expedientes = await Expediente.find(query)
-      .sort({ fechaCreacion: -1 })
-      .populate('abogado.id', 'nombre apellidos matricula')
-      .populate('deudor.id', 'nombre apellidos matricula correo');
+    const expedientes = await Expediente.find(query).sort({ fechaCreacion: -1 }).lean();
     
     res.json(expedientes);
   } catch (error) {
@@ -38,9 +35,7 @@ router.get('/', async (req, res) => {
 // Obtener un expediente específico
 router.get('/:id', async (req, res) => {
   try {
-    const expediente = await Expediente.findById(req.params.id)
-      .populate('abogado.id', 'nombre apellidos matricula')
-      .populate('deudor.id', 'nombre apellidos matricula correo');
+    const expediente = await Expediente.findById(req.params.id).lean();
     
     if (!expediente) {
       return res.status(404).json({ msg: 'Expediente no encontrado' });
@@ -75,10 +70,14 @@ router.post('/', authorize('abogado', 'admin'), async (req, res) => {
     // El abogado es el usuario que está haciendo la petición a través del token
     const abogadoId = req.user.id;
     
-    // Validar que el abogado exista y tenga rol de abogado
+    // Validar que el usuario autenticado exista en BD
     const abogado = await User.findById(abogadoId);
-    if (!abogado || (abogado.rol !== 'abogado' && abogado.role !== 'abogado')) {
-      return res.status(400).json({ msg: 'El usuario no tiene rol de abogado o no existe.' });
+    if (!abogado) {
+      return res.status(400).json({ msg: 'El usuario autenticado no existe.' });
+    }
+    // authorize() ya validó el rol desde el JWT; aquí solo verificamos que sea abogado o admin en BD
+    if (abogado.rol !== 'abogado' && abogado.rol !== 'admin') {
+      return res.status(403).json({ msg: `Rol insuficiente: '${abogado.rol}'. Se requiere abogado o admin.` });
     }
 
     // Validar que el deudor exista
@@ -258,29 +257,6 @@ router.post('/:id/pagar', authorize('abogado', 'admin'), async (req, res) => {
     console.error(error);
     res.status(500).json({ msg: 'Error al registrar pago' });
   }
-
-  // ... (dentro de tu router.post('/', ...))
-
-// El abogado es el usuario que está haciendo la petición a través del token
-const abogadoId = req.user.id;
-
-// Validar que el abogado exista en la BD
-const abogado = await User.findById(abogadoId);
-if (!abogado) {
-  return res.status(400).json({ msg: 'El usuario autenticado ya no existe en la base de datos.' });
-}
-
-// Extraer el rol sin importar si se llama 'rol' o 'role'
-const rolUsuario = (abogado.rol || abogado.role || '').toLowerCase().trim();
-
-// Validación multi-rol: Permitimos 'abogado' o 'admin' para interactuar
-if (rolUsuario !== 'abogado' && rolUsuario !== 'admin') {
-  return res.status(400).json({ 
-    msg: `Acceso denegado. Tu rol actual es '${rolUsuario}'. Se requiere rol de 'abogado' o 'admin'.` 
-  });
-}
-
-// ... (el resto de tu código de creación de expediente sigue igual)
 });
 
 // Actualizar estado del expediente

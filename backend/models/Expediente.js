@@ -56,14 +56,12 @@ const expedienteSchema = new mongoose.Schema({
 expedienteSchema.index({ 'deudor.id': 1 });
 expedienteSchema.index({ 'abogado.id': 1 });
 // ANTES de exportar el modelo en tu archivo de Mongoose backend:
-expedienteSchema.pre('validate', async function (next) {
+expedienteSchema.pre('validate', async function() {
   if (!this.noExpediente) {
-    // Genera un código único basado en el año y un número aleatorio (Ej: EXP-2026-8492)
     const ano = new Date().getFullYear();
     const rand = Math.floor(1000 + Math.random() * 9000);
     this.noExpediente = `EXP-${ano}-${rand}`;
   }
-  next();
 });
 
 module.exports = mongoose.model('Expediente', expedienteSchema);

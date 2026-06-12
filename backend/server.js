@@ -22,7 +22,16 @@ app.use('/api/expedientes', expedienteRoutes);
 
 // 🚀 Conexión a MongoDB Atlas
 mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('✅ Conectado a MongoDB Atlas'))
+  .then(async () => {
+    console.log('✅ Conectado a MongoDB Atlas');
+    // Eliminar índice obsoleto 'numero_1' si existe (quedó de una versión anterior)
+    try {
+      await mongoose.connection.collection('expedientes').dropIndex('numero_1');
+      console.log('🧹 Índice obsoleto numero_1 eliminado');
+    } catch (_) {
+      // Si no existe el índice, no hay problema
+    }
+  })
   .catch(err => console.error('❌ Error MongoDB:', err));
 
 const PORT = process.env.PORT || 5000;
